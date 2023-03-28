@@ -30,7 +30,11 @@
         <tbody>
             {% for payment in payments %}
             <tr>
+                {% if payment.type is not none %}
                 <td>{{ payment.type.capitalize() }} transfer</td>
+                {% else %}
+                <td>N/A</td>
+                {% endif %}
                 <td>${{ "{:,.2f}".format(payment.amount_upper_bound / 100) }} {{ payment.currency }}</td>
                 {% if payment.status == "reconciled" %}
                 <td>{{ payment.status.capitalize() }} <i class="bi bi-check-circle-fill"></i></td>
