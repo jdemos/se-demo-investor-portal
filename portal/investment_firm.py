@@ -1,5 +1,6 @@
 from flask import Flask, render_template, abort, request, url_for, Response, session, redirect, Blueprint, current_app
 from modern_treasury import ModernTreasury
+from datetime import date, timedelta
 import os
 import json
 
@@ -11,6 +12,8 @@ modern_treasury = ModernTreasury(
     organization_id=os.environ.get("KKMT_ORG_ID"),
 )
 
+LOWER_DATE_FILTER = date.today() - timedelta(14)
+
 @bp.route('/dashboard', methods= ['GET'])
 def render_dashboard():
 
@@ -20,8 +23,8 @@ def render_dashboard():
 @bp.route('/payments', methods= ['GET'])
 def list_payments():
 
-    # expected_payments = modern_treasury.expected_payments.list(type='wire', created_at_lower_bound= '2023-03-24')
-    expected_payments = modern_treasury.expected_payments.list()
+    expected_payments = modern_treasury.expected_payments.list(type='wire', created_at_lower_bound= LOWER_DATE_FILTER)
+    # expected_payments = modern_treasury.expected_payments.list()
     payment_count = str(len(list(enumerate(expected_payments))))
     
     return render_template('payments.html', payment_count=payment_count, payments=expected_payments)
@@ -29,8 +32,8 @@ def list_payments():
 @bp.route('/distributions')
 def list_distributions():
 
-    # payment_orders = modern_treasury.payment_orders.list(type='wire', status='needs_approval')
-    payment_orders = modern_treasury.payment_orders.list()
+    payment_orders = modern_treasury.payment_orders.list(type='wire', effective_date_start=LOWER_DATE_FILTER)
+    # payment_orders = modern_treasury.payment_orders.list()
     payment_count = str(len(list(enumerate(payment_orders))))
     
     return render_template ('distributions.html', payment_count=payment_count, payments=payment_orders)
