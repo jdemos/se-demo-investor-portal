@@ -10,8 +10,8 @@ load_dotenv(verbose=True)
 
 modern_treasury = ModernTreasury(
     # defaults to os.environ.get("MODERN_TREASURY_API_KEY")
-    api_key=os.environ.get("KKMT_API_KEY"),
-    organization_id=os.environ.get("KKMT_ORG_ID"),
+    api_key=os.environ.get("MY_API_KEY"),
+    organization_id=os.environ.get("MY_ORG_ID"),
 )
 
 app = Flask(__name__)
@@ -23,6 +23,7 @@ def custom_values():
         company_name = app.config.get("COMPANY_NAME"),
         company_name_short = app.config.get("COMPANY_NAME_SHORT"),
         company_logo = app.config.get("COMPANY_LOGO"),
+        login_logo = app.config.get("LOGIN_LOGO"),
         username = app.config.get("USERNAME")
     )
 
@@ -47,8 +48,8 @@ def render_dashboard():
 @app.route('/payments', methods= ['GET'])
 def list_payments():
 
-    # expected_payments = modern_treasury.expected_payments.list(type='wire', created_at_lower_bound= '2023-03-24')
-    expected_payments = modern_treasury.expected_payments.list()
+    expected_payments = modern_treasury.expected_payments.list(type='wire', created_at_lower_bound= '2023-05-09')
+    # expected_payments = modern_treasury.expected_payments.list()
     payment_count = str(len(list(enumerate(expected_payments))))
     
     return render_template('payments.html', payment_count=payment_count, payments=expected_payments)
@@ -56,8 +57,8 @@ def list_payments():
 @app.route('/distributions')
 def list_distributions():
 
-    # payment_orders = modern_treasury.payment_orders.list(type='wire', status='needs_approval')
-    payment_orders = modern_treasury.payment_orders.list()
+    payment_orders = modern_treasury.payment_orders.list(type='wire', status='needs_approval', effective_date_start= '2023-04-12')
+    # payment_orders = modern_treasury.payment_orders.list()
     payment_count = str(len(list(enumerate(payment_orders))))
     
     return render_template ('distributions.html', payment_count=payment_count, payments=payment_orders)

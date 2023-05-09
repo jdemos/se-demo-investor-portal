@@ -12,26 +12,25 @@
 <main class="d-flex flex-nowrap">
     <div class="d-flex sidebar flex-column flex-shrink-0 p-3 text-bg-dark" id="sidebar">
         <a href="/login" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-            <img src="{{ company_logo }}" width="35" height="35" alt="{{ company_name }} Logo" class="me-2">
-            <span class="fs-4">Investor Portal</span>
+            <img src="{{ company_logo }}" height="50" alt="{{ company_name }} Logo" class="me-2">
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
           <li>
             <a href="/dashboard" class="nav-link text-white">
-              <i class="bi-speedometer"></i>
+              <i class="bi-speedometer mx-1"></i>
               Dashboard
             </a>
           </li>
           <li>
             <a href="/payments" class="nav-link text-white">
-              <i class="bi-wallet2"></i>
+              <i class="bi-wallet2 mx-1"></i>
               Capital Calls
             </a>
           </li>
           <li>
             <a href="/distributions" class="nav-link text-white">
-              <i class="bi-coin"></i>
+              <i class="bi-coin mx-1"></i>
               Distributions
             </a>
           </li>
@@ -39,7 +38,7 @@
         <hr>
         <div class="dropdown">
           <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+            <img src="/static/investor-icon.png" alt="" width="32" height="32" class="rounded-circle me-2">
             <strong>{{ username }}</strong>
           </a>
           <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
@@ -47,8 +46,8 @@
           </ul>
         </div>
       </div>
-      <body style="background: #f7f5f5">
-        <div class="col-lg-8 mx-auto p-4 py-md-5">
+      <body style="background: #f7f5f5" >
+        <div class="col-lg-8 p-4 py-md-5" style="margin-left:320px">
             <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
                 <h1>{% block title %}{% endblock %}</h1>
             </header>
